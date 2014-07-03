@@ -24,8 +24,16 @@ def gaussian_kernel(x, y, sigma=5.0):
 
 
 class nuSVM(object):
+    """
+    This class implements a variant of SVM called the nu-SVM. 
 
-    def __init__(self, kernel=linear_kernel, nu=None, verbose=False, threshold=1e-5):
+    Inputs:
+        X  : array-like, shape: (num_samples, num_features)
+        y  : array-like, shape: (num_samples,)
+
+    """
+
+    def __init__(self, kernel=linear_kernel, nu=0.1, verbose=1, threshold=1e-5):
         self.kernel = kernel
         self.nu = float(nu)
         self.verbose = verbose
