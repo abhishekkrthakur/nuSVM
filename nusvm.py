@@ -24,6 +24,7 @@ def gaussian_kernel(x, y, sigma=5.0):
 
 
 class nuSVM(object):
+
     """
     This class implements a variant of SVM called the nu-SVM. 
 
@@ -39,14 +40,15 @@ class nuSVM(object):
         self.verbose = verbose
         self.threshold = threshold
         assert self.nu >= 0 and self.nu <= 1.0
-        if self.verbose == False: cvxopt.solvers.options['show_progress'] = False
+        if self.verbose == False:
+            cvxopt.solvers.options['show_progress'] = False
 
     def fit(self, X, y):
         n_samples, n_features = X.shape
         unique_labels = np.unique(y)
         assert len(unique_labels) == 2
 
-        K = X.dot(X.T) 
+        K = X.dot(X.T)
 
         P = cvxopt.matrix(np.outer(y, y) * K)
 
@@ -67,10 +69,8 @@ class nuSVM(object):
         if self.verbose:
             "nu =", self.nu
 
-        # Lagrange multipliers
         a = np.ravel(solution['x'])
 
-        # Support vectors have non zero lagrange multipliers
         sv = a > self.threshold
         ind = np.arange(len(a))[sv]
         self.a = a[sv]
@@ -79,14 +79,12 @@ class nuSVM(object):
         if self.verbose:
             print "%d support vectors out of %d points" % (len(self.a), n_samples)
 
-        # Intercept
         self.b = 0
         for n in range(len(self.a)):
             self.b += self.sv_y[n]
             self.b -= np.sum(self.a * self.sv_y * K[ind[n], sv])
         self.b /= len(self.a)
 
-        # Weight vector
         if self.kernel == linear_kernel:
             self.w = np.zeros(n_features)
             for n in range(len(self.a)):
