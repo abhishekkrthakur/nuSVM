@@ -30,6 +30,8 @@ class nuSVM(object):
 
     def fit(self, X, y):
         n_samples, n_features = X.shape
+        unique_labels = np.unique(y)
+        assert len(unique_labels) == 2
         # Gram matrix
         #print X
         K = np.zeros((n_samples, n_samples))
