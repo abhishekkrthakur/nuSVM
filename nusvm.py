@@ -44,12 +44,8 @@ class nuSVM(object):
         n_samples, n_features = X.shape
         unique_labels = np.unique(y)
         assert len(unique_labels) == 2
-        # Gram matrix
-        # print X
-        K = np.zeros((n_samples, n_samples))
-        for i in range(n_samples):
-            for j in range(n_samples):
-                K[i, j] = self.kernel(X[i], X[j])
+
+        K = X.dot(X.T) 
 
         P = cvxopt.matrix(np.outer(y, y) * K)
 
