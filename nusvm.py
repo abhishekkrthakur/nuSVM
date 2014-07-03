@@ -39,6 +39,7 @@ class nuSVM(object):
         self.verbose = verbose
         self.threshold = threshold
         assert self.nu >= 0 and self.nu <= 1.0
+        if self.verbose == False: cvxopt.solvers.options['show_progress'] = False
 
     def fit(self, X, y):
         n_samples, n_features = X.shape
