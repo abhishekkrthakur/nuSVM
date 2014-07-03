@@ -83,7 +83,7 @@ class nuSVM(object):
         else:
             self.w = None
 
-    def project(self, X):
+    def decision_function(self, X):
         if self.w is not None:
             return np.dot(X, self.w) + self.b
         else:
@@ -96,4 +96,4 @@ class nuSVM(object):
             return y_predict + self.b
 
     def predict(self, X):
-        return np.sign(self.project(X))
+        return np.sign(self.decision_function(X))
