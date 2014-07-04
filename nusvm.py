@@ -34,7 +34,7 @@ class nuSVM(object):
 
     """
 
-    def __init__(self, kernel=linear_kernel, nu=0.1, verbose=1, threshold=1e-5):
+    def __init__(self, kernel=linear_kernel, nu=0.1, verbose=True, threshold=1e-5):
         self.kernel = kernel
         self.nu = float(nu)
         self.verbose = verbose
